@@ -10,6 +10,15 @@
 
 require('../db/mongoose');
 
-module.exports = function(app) {
-  app.route('/api/stock-prices').get(function(req, res) {});
+module.exports = app => {
+  app.route('/api/stock-prices').get(async (req, res) => {
+    let stockData = { stockData: {} };
+    const { stock } = req.query.stock;
+    if (stock.isArray()) {
+      const stockOne = stock[0];
+      const stockTwo = stock[1];
+    }
+
+    res.send(JSON.stringify(stockData));
+  });
 };
