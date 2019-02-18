@@ -8,10 +8,7 @@
 
 'use strict';
 
-const expect = require('chai').expect;
-const MongoClient = require('mongodb');
-
-const CONNECTION_STRING = process.env.DB; //MongoClient.connect(CONNECTION_STRING, function(err, db) {});
+require('../db/mongoose');
 
 module.exports = function(app) {
   app.route('/api/stock-prices').get(function(req, res) {});
