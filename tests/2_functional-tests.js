@@ -13,26 +13,58 @@ const server = require('../server');
 
 chai.use(chaiHttp);
 
-suite('Functional Tests', function() {
-  suite('GET /api/stock-prices => stockData object', function() {
-    test('1 stock', function(done) {
+suite('Functional Tests', () => {
+  suite('GET /api/stock-prices => stockData object', () => {
+    test('1 stock', done => {
       chai
         .request(server)
         .get('/api/stock-prices')
         .query({ stock: 'goog' })
-        .end(function(err, res) {
-          //complete this one too
-
+        .end((err, res) => {
+          const { stock, price, likes } = res.body.stockData;
+          assert.isString(stock);
+          assert.equal(stock, 'GOOG', 'should be capitalized ticker symbol');
+          assert.isNumber(parseFloat(price));
+          assert.isNumber(likes);
+          assert.equal(likes, 0, 'there should be no likes');
           done();
         });
     });
 
-    test('1 stock with like', function(done) {});
+    test('1 stock with like', done => {
+      chai
+        .request(server)
+        .get('/api/stock-prices')
+        .query({ stock: 'goog', like: true })
+        .end((err, res) => {
+          const { stock, price, likes } = res.body.stockData;
+          assert.isString(stock);
+          assert.equal(stock, 'GOOG', 'should be capitalized ticker symbol');
+          assert.isNumber(parseFloat(price));
+          assert.isNumber(likes);
+          assert.equal(likes, 1, 'there should be one like');
+          done();
+        });
+    });
 
-    test('1 stock with like again (ensure likes arent double counted)', function(done) {});
+    test('1 stock with like again (ensure likes arent double counted)', done => {
+      chai
+        .request(server)
+        .get('/api/stock-prices')
+        .query({ stock: 'goog', like: true })
+        .end((err, res) => {
+          const { stock, price, likes } = res.body.stockData;
+          assert.isString(stock);
+          assert.equal(stock, 'GOOG', 'should be capitalized ticker symbol');
+          assert.isNumber(parseFloat(price));
+          assert.isNumber(likes);
+          assert.equal(likes, 2, 'there should be one like');
+          done();
+        });
+    });
 
-    test('2 stocks', function(done) {});
+    test('2 stocks', done => {});
 
-    test('2 stocks with like', function(done) {});
+    test('2 stocks with like', done => {});
   });
 });
