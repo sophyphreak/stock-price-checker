@@ -9,11 +9,11 @@ const twoStocks = async (stock, like) => {
   price2 = await getPrice(stock2);
   let likes1, likes2;
   if (like) {
-    likes1 = updateStockWithLike(stock1);
-    likes2 = updateStockWithLike(stock2);
+    likes1 = await updateStockWithLike(stock1);
+    likes2 = await updateStockWithLike(stock2);
   } else {
-    likes1 = getStockLikes(stock1);
-    likes2 = getStockLikes(stock2);
+    likes1 = await getStockLikes(stock1);
+    likes2 = await getStockLikes(stock2);
   }
   return JSON.stringify({
     stockData: [
