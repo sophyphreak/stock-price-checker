@@ -1,5 +1,5 @@
-const axios = require('axios');
 const { Stock } = require('../../models/stock');
+const { getPrice } = require('./getPrice');
 
 const oneStock = async (stock, like) => {
   stock = stock.toUpperCase();
@@ -9,17 +9,7 @@ const oneStock = async (stock, like) => {
   } else {
     stockLikes = await getStockLikes(stock);
   }
-  let price;
-  try {
-    price = await axios.get(
-      `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stock}&apikey=${
-        process.env.API_KEY
-      }`
-    );
-    price = price.data['Global Quote']['05. price'];
-  } catch (e) {
-    console.log(e);
-  }
+  const price = await getPrice(stock);
   return JSON.stringify({
     stockData: { stock: stock, price: price, likes: stockLikes }
   });
