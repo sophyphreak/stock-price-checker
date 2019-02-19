@@ -2,7 +2,6 @@
 require('dotenv').config();
 
 const express = require('express');
-const bodyParser = require('body-parser');
 const expect = require('chai').expect;
 const cors = require('cors');
 const helmet = require('helmet');
@@ -28,9 +27,6 @@ app.use(
 app.use('/public', express.static(process.cwd() + '/public'));
 
 app.use(cors({ origin: '*' })); //For FCC testing purposes only
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 //Index page (static HTML)
 app.route('/').get(function(req, res) {
