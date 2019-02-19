@@ -7,10 +7,7 @@
  */
 
 const chai = require('chai');
-const StockHandler = require('../controllers/stockHandler.js');
-
-const stockPrices = new StockHandler();
 
 suite('Unit Tests', function() {
-  //none requiered
+  //none required
 });
