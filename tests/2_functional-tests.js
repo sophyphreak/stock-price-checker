@@ -11,9 +11,16 @@ const chai = require('chai');
 const assert = chai.assert;
 const server = require('../server');
 
+const { Stock } = require('../models/stock');
+
 chai.use(chaiHttp);
 
 suite('Functional Tests', () => {
+  before(() => {
+    Stock.remove({}, err => {
+      if (err) console.log(err);
+    });
+  });
   suite('GET /api/stock-prices => stockData object', () => {
     test('1 stock', done => {
       chai
@@ -21,7 +28,8 @@ suite('Functional Tests', () => {
         .get('/api/stock-prices')
         .query({ stock: 'goog' })
         .end((err, res) => {
-          const { stock, price, likes } = res.body.stockData;
+          const data = JSON.parse(res.body);
+          const { stock, price, likes } = data.stockData;
           assert.isString(stock);
           assert.equal(stock, 'GOOG', 'should be capitalized ticker symbol');
           assert.isNumber(parseFloat(price));
@@ -37,7 +45,8 @@ suite('Functional Tests', () => {
         .get('/api/stock-prices')
         .query({ stock: 'goog', like: true })
         .end((err, res) => {
-          const { stock, price, likes } = res.body.stockData;
+          const data = JSON.parse(res.body);
+          const { stock, price, likes } = data.stockData;
           assert.isString(stock);
           assert.equal(stock, 'GOOG', 'should be capitalized ticker symbol');
           assert.isNumber(parseFloat(price));
@@ -53,7 +62,8 @@ suite('Functional Tests', () => {
         .get('/api/stock-prices')
         .query({ stock: 'goog', like: true })
         .end((err, res) => {
-          const { stock, price, likes } = res.body.stockData;
+          const data = JSON.parse(res.body);
+          const { stock, price, likes } = data.stockData;
           assert.isString(stock);
           assert.equal(stock, 'GOOG', 'should be capitalized ticker symbol');
           assert.isNumber(parseFloat(price));
