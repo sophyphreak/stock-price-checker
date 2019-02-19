@@ -1,4 +1,3 @@
-const assert = require('assert');
 const { oneStock } = require('./oneStock');
 const { twoStocks } = require('./twoStocks');
 
