@@ -17,14 +17,12 @@ const oneStock = async (stock, like) => {
       }`
     );
     price = price.data['Global Quote']['05. price'];
-    // console.log(price);
   } catch (e) {
     console.log(e);
   }
   return JSON.stringify({
     stockData: { stock: stock, price: price, likes: stockLikes }
   });
-  // return ['stockLikes:', stockLikes, 'price:', price];
 };
 
 const updateStockWithLike = async stock => {
