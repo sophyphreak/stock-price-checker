@@ -7,7 +7,7 @@ const Stock = mongoose.model('Stock', {
   },
   likes: {
     type: Number,
-    required: true
+    default: 0
   }
 });
 
