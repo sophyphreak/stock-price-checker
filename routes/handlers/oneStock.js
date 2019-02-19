@@ -1,4 +1,3 @@
-const { Stock } = require('../../models/stock');
 const { getPrice } = require('./getPrice');
 const { getStockLikes } = require('./getStockLikes');
 const { updateStockWithLike } = require('./updateStockWithLike');
